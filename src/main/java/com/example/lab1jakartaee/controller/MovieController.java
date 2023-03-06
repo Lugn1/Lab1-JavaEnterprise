@@ -55,5 +55,16 @@ public class MovieController {
         repository.deleteMovie(id);
     }
 
+    @PUT
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateMovie(@PathParam("id") Long id, @Valid MovieDto movieDto){
+        var movie = repository.findOne(id);
+        if (movie.isPresent())
+            return Response.ok().entity(mapper.map(repository.update(id, mapper.map(movieDto)))).build();
+        throw new NotFoundException(Response.status(404).build());
+    }
+
 
 }

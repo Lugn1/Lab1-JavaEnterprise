@@ -33,12 +33,19 @@ public class MovieRepository {
 
     public void deleteMovie(Long id) {
         var movie = findOne(id);
-        movie.ifPresent((m) -> entityManager.remove(movie));
+        movie.ifPresent((m) -> entityManager.remove(m));
     }
 
     public List<Movie> findAllByTitle(String title) {
         var query = entityManager.createQuery("SELECT m FROM Movie m WHERE m.title LIKE :title");
         query.setParameter("title", title + "%");
         return query.getResultList();
+    }
+
+    public Movie update(Long id, Movie movie){
+        var entity = entityManager.find(Movie.class, id);
+        entity.setTitle(movie.getTitle());
+        entityManager.persist(entity);
+        return entity;
     }
 }

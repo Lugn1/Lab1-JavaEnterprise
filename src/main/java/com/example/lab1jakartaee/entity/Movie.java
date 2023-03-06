@@ -15,18 +15,9 @@ public class Movie {
     private Long id;
 
     @Size(min = 1)
-    @NotNull
+    @NotNull(message = "Movie title cannot be empty")
     String title;
 
-    String hiddenInformation;
-
-    public String getHiddenInformation() {
-        return hiddenInformation;
-    }
-
-    public void setHiddenInformation(String hiddenInformation) {
-        this.hiddenInformation = hiddenInformation;
-    }
 
     public String getTitle() {
         return title;
