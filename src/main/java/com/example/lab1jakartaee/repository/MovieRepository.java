@@ -16,13 +16,13 @@ public class MovieRepository {
     @PersistenceContext
     EntityManager entityManager;
 
-    List<Movie> findAll() {
+    public List<Movie> findAll() {
 
         var query = entityManager.createQuery("SELECT m FROM Movie m");
         return (List<Movie>) query.getResultList();
     }
 
-    Optional<Movie> findOne(Long id) {
+    public Optional<Movie> findOne(Long id) {
         return Optional.ofNullable(entityManager.find(Movie.class, id));
 
     }
@@ -36,4 +36,9 @@ public class MovieRepository {
         movie.ifPresent((m) -> entityManager.remove(movie));
     }
 
+    public List<Movie> findAllByTitle(String title) {
+        var query = entityManager.createQuery("SELECT m FROM Movie m WHERE m.title LIKE :title");
+        query.setParameter("title", title + "%");
+        return query.getResultList();
+    }
 }
