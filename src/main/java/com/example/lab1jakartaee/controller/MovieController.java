@@ -1,6 +1,8 @@
 package com.example.lab1jakartaee.controller;
 
+import com.example.lab1jakartaee.dto.MovieDto;
 import com.example.lab1jakartaee.entity.Movie;
+import com.example.lab1jakartaee.mapper.Mapper;
 import com.example.lab1jakartaee.repository.MovieRepository;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -17,12 +19,15 @@ public class MovieController {
     @Inject
     MovieRepository repository;
 
+    @Inject
+    Mapper mapper;
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Movie> getAll(@QueryParam("title") String title) {
+    public List<MovieDto> getAll(@QueryParam("title") String title) {
         if (title == null)
-            return repository.findAll();
-        return repository.findAllByTitle(title);
+            return mapper.map(repository.findAll());
+        return mapper.map(repository.findAllByTitle(title));
     }
 
     @GET

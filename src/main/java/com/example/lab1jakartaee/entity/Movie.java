@@ -18,6 +18,16 @@ public class Movie {
     @NotNull
     String title;
 
+    String hiddenInformation;
+
+    public String getHiddenInformation() {
+        return hiddenInformation;
+    }
+
+    public void setHiddenInformation(String hiddenInformation) {
+        this.hiddenInformation = hiddenInformation;
+    }
+
     public String getTitle() {
         return title;
     }
