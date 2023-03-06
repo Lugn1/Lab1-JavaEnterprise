@@ -3,6 +3,7 @@ package com.example.lab1jakartaee.controller;
 import com.example.lab1jakartaee.entity.Movie;
 import com.example.lab1jakartaee.repository.MovieRepository;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -37,11 +38,10 @@ public class MovieController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addOne(Movie movie) {
+    public Response addOne(@Valid Movie movie) {
         repository.insertMovie(movie);
         return Response.created(URI.create("movies/" + movie.getId())).build();
     }
-
 
 
     @DELETE
